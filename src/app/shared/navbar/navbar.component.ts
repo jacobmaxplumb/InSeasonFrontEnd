@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild } from "@angular/core"
-import { wrappedError } from '@angular/core/src/error_handler';
+import { Component, OnInit } from "@angular/core"
+import { AuthService } from 'src/app/__services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'shared-navbar',
@@ -7,13 +8,31 @@ import { wrappedError } from '@angular/core/src/error_handler';
     styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-    show: boolean
+    wrapClass: string;
+
+    constructor(
+        private authService: AuthService,
+        private router: Router
+        ) { }
 
     ngOnInit() {
-        this.show = true;
+        this.wrapClass = 'd-flex toggled';
     }
 
     toggleSide() {
-        this.show = !this.show;
+        if (this.authService.isAuthorized()){
+            this.wrapClass === 'd-flex toggled' ? this.wrapClass = 'd-flex' : this.wrapClass = 'd-flex toggled';
+        }
+    }
+
+    logoutClicked() {
+        this.authService.logout();
+        this.router.navigate(['/users/login']);
+    }
+
+    get showButton(): boolean {
+        if (this.authService.isAuthorized()){
+            return true
+        }
     }
 }

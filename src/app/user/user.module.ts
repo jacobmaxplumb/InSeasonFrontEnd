@@ -2,17 +2,17 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { UserRoutingModule } from './user-routing.module';
 import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     imports: [
         CommonModule,
-        UserRoutingModule
+        UserRoutingModule,
+        ReactiveFormsModule
     ],
     declarations: [
         LoginComponent,
-        SignupComponent,
         ProfileComponent
     ],
     providers: [],
